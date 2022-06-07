@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
 import useStyles from './styles'
+import { useDispatch } from 'react-redux';
+
+import { getPosts } from './actions/posts';
 import { Route, Routes } from "react-router-dom";
 // IMPORT PAGES
 import Home from "./pages/Home";
@@ -11,8 +14,15 @@ import Footer from "./components/Footer";
 
 function App() {
     // URL should have YOUR HEROKU URL for your backend, make sure you include the trailing slash
-    const URL = "https://grattitudebackend.herokuapp.com/";
+    // const URL = "https://grattitudebackend.herokuapp.com/";
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+useEffect(() => {
+    dispatch(getPosts());
+}, [dispatch]);
+
+
     return (
         <Container maxwidth="lg">
             <AppBar className={classes.appBar} position="static" color="inherit">
