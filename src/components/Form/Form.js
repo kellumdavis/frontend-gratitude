@@ -1,15 +1,24 @@
 import React, { useState} from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from 'react-file-base64';
+import { useDispatch } from "react-redux";
 import useStyles from "./styles";
+import { createPost } from "../../actions/posts";
+
+
 function Form(props) {
 
     const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });  
+    const dispatch = useDispatch();
       
  
   const classes = useStyles();
 
-  const handleSubmit = () => {}; 
+  const handleSubmit = (e) => {
+      e.preventDefault();
+
+      dispatch(createPost(postData));
+  }; 
 
   const clear = () => {};
 
@@ -18,7 +27,7 @@ function Form(props) {
       <form
         autoComplete="off"
         noValidate
-        className={classes.form}
+        className={`${classes.form} ${classes.root}`}
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">What are you grateful for today?</Typography>
